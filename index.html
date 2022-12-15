@@ -11,18 +11,20 @@
     <link rel="shortcut icon" href="assets/images/list-check-solid.svg">
     <title>To do list</title>
 
-    <!--css & js-->
+    <!--css -->
     <link rel="stylesheet" href="assets/css/style.css">
-    <script src="assets/js/script.js" defer></script>
+
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css"
         integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <!--js -->
+    <script src="assets/js/script.js" defer></script>
 </head>
 
 <body>
     <header>
-        <h1>My to do list!</h1>
+        <h1 id="header">My to do list!</h1>
     </header>
     <!-- To do list container -->
     <div class="todo-container">
@@ -39,9 +41,9 @@
 
         <!-- Form to edit the tasks -->
         <form id="edit-form">
-            <P>Edit your task</P>
-            <div id="form-control">
-                <input type="text" id="edit-input">
+            <P>Edit your task:</P>
+            <div class="form-control">
+                <input type="text" id="edit-input" aria-label="Edit">
                 <button type="submit">
                     <i class="fa-solid fa-check-double"></i>
                 </button>
@@ -52,10 +54,10 @@
         <!-- Search toolbar -->
         <div id="toolbar">
             <div id="search">
-                <h4>Search:</h4>
+                <p>Search:</p>
                 <form>
                     <input type="text" id="search-input" placeholder="Search">
-                    <button id="erase-button">
+                    <button id="erase-button" aria-label="Delete">
                         <i class="fa-solid fa-delete-left"></i>
                     </button>
                 </form>
@@ -63,7 +65,7 @@
 
             <!-- Filter -->
             <div id="filter">
-                <h4>Filter:</h4>
+                <p>Filter:</p>
                 <select name="filter-select" id="filter-select">
                     <option value="all">All</option>
                     <option value="done">Done</option>
@@ -74,19 +76,20 @@
 
         <!-- tasks -->
         <div id="todo-list">
-            <div class="todo">
-                <h3>I'm doing the housework</h3>
-                <button class="finish-todo">
+            <div class="todo done">
+                <p>I'm doing the housework</p>
+                <button class="finish-todo" aria-label="Check">
                     <i class="fa-solid fa-check"></i>
                 </button>
-                <button class="edit-todo">
+                <button class="edit-todo" aria-label="Edit">
                     <i class="fa-solid fa-pen"></i>
                 </button>
-                <button class="remove-todo">
+                <button class="remove-todo" aria-label="Remove">
                     <i class="fa-solid fa-xmark"></i>
                 </button>
             </div>
         </div>
     </div>
 </body>
+
 </html>
