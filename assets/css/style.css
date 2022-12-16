@@ -5,8 +5,6 @@
     padding: 0;
     border: none;
     box-sizing: border-box;
-    font-family: "Lora", serif;
-    color:  #076177;
     /* outline: 1px solid red; */
 }
 
@@ -14,15 +12,8 @@ body {
     background: url("../images/background.jpg") no-repeat center center;
     background-size: cover;
     max-width: 2000px;
-}
-
-/* Header*/
-#header {
-    font-family: "Ubuntu", sans-serif;
-    color: #fdfdfd;
-    text-align: center;
-    font-size: 3rem;
-    margin: 3rem 0 0 0;
+    font-family: "Lora", serif;
+    color:  #076177;
 }
 
 /* To do container */
@@ -34,6 +25,17 @@ body {
     border-radius: 15px;
 }
 
+/* Header*/
+#header {
+    font-family: "Ubuntu", sans-serif;
+    color: #196476;
+    letter-spacing: 4px;
+    text-align: center;
+    font-size: 3rem;
+    margin: 0 0 10px 0 ;
+}
+
+/* buttons */
 button {
     background-color: #fdfdfd;
     color: #076177;
@@ -68,12 +70,16 @@ input, select {
 /* Form */
 #todo-form, #edit-form {
     padding: 1rem;
-    border-bottom: 1px solid #fdfdfd;
+    border-bottom: 1px solid #829fa5;
 }
 
 #todo-form p, #edit-form p {
     font-weight: bold;
     margin-bottom: 0.5rem;
+}
+
+.hide {
+    display: none;
 }
 
 .form-control {
@@ -82,6 +88,8 @@ input, select {
 
 .form-control input {
     margin-right: 0.4rem;
+    border: 1px solid #3D7C82;
+    flex: 1
 }
 
 #cancel-edit-btn {
@@ -92,7 +100,7 @@ input, select {
 #toolbar {
     display: flex;
     padding: 1rem;
-    border-bottom: 1px solid #fdfdfd;
+    border-bottom: 1px solid #829fa5;
 }
 
 #toolbar p {
@@ -104,7 +112,7 @@ input, select {
     flex-direction: column;
     width: 65%;
     border-right: 1px solid #829fa5;
-    padding-right: 1rem;
+    padding-right: 0.3rem;
     margin-right: 1rem;
 }
 
@@ -115,6 +123,7 @@ input, select {
 #search input {
     width: 100%;
     margin-right: 0.4rem;
+    border: 1px solid #3D7C82;
 }
 
 #filter {
@@ -125,9 +134,14 @@ input, select {
 
 #filter select {
     flex: 1;
+    border: 1px solid #3D7C82;
 }
 
 /* To do list */
+#todo-list {
+    margin-top: 1rem;
+}
+
 .todo {
     display: flex;
     align-items: center;
@@ -148,6 +162,7 @@ input, select {
 
 .done {
     background-color: #196476;
+    margin: 0 1rem;
 }
 
 .done p {

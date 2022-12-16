@@ -23,28 +23,29 @@
 </head>
 
 <body>
-    <header>
-        <h1 id="header">My to do list!</h1>
-    </header>
+    
     <!-- To do list container -->
     <div class="todo-container">
+        <header>
+            <h1 id="header">My to do list</h1>
+        </header>
         <!-- Form to add the tasks -->
         <form id="todo-form">
             <p>Add your tasks:</p>
             <div class="form-control">
                 <input type="text" id="todo-input" placeholder="What do you have to do?">
-                <button type="submit">
+                <button type="submit" aria-label="Submit">
                     <i class="fa-solid fa-plus"></i>
                 </button>
             </div>
         </form>
 
         <!-- Form to edit the tasks -->
-        <form id="edit-form">
+        <form id="edit-form" class="hide">
             <P>Edit your task:</P>
             <div class="form-control">
                 <input type="text" id="edit-input" aria-label="Edit">
-                <button type="submit">
+                <button type="submit" aria-label="Check">
                     <i class="fa-solid fa-check-double"></i>
                 </button>
             </div>
