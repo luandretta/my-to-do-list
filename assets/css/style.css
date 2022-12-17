@@ -12,6 +12,7 @@ body {
     background: url("../images/background.jpg") no-repeat center center;
     background-size: cover;
     max-width: 2000px;
+    min-height: 100vw;
     font-family: "Lora", serif;
     color:  #076177;
 }

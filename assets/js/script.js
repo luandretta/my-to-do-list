@@ -19,7 +19,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
         if (inputValue) {
 
-            saveTodo(inputValue, todoList);
+            saveTodo(todoList, todoInput);
+        
         }
     });
 
@@ -30,16 +31,14 @@ document.addEventListener("DOMContentLoaded", function () {
 /** 
  * function to create the to do list with buttons to edit the list
  */
-function saveTodo(text, todo_list){
+function saveTodo(todo_list, todo_input) {
 
     const todo = document.createElement("div");
     todo.classList.add("todo");
 
     const todoTask = document.createElement("p");
-    todoTask.innerHTML = text;
+    todoTask.innerHTML = todo_input.value;
     todo.appendChild(todoTask);
-
-    
 
     // buttons
 
@@ -59,4 +58,29 @@ function saveTodo(text, todo_list){
     todo.appendChild(deleteBtn);
 
     todo_list.append(todo);
-}
+    todo_input.value = "";
+    todo_input.focus();
+};
+
+// events
+
+/**
+ * event listeners to the buttons
+ */
+document.addEventListener("click", (e) => {
+    const targetEl = e.target;
+    const parentEl = targetEl.closest("div");
+
+    if (targetEl.classList.contains("finish-todo")) {
+        parentEl.classList.toggle("done");
+    }
+
+    if (targetEl.classList.contains("remove-todo")) {
+        parentEl.remove();
+    }
+
+    if (targetEl.classList.contains("edit-todo")) {
+        console.log("Edited");
+    }
+
+});
