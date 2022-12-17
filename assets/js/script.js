@@ -1,26 +1,45 @@
-/* Wait for the DOM to finish loading before running the quiz
-document.addEventListener("DOMContentLoaded", function() {
-}); */
+// Wait for the DOM to finish loading before running the quiz
+document.addEventListener("DOMContentLoaded", function () {
 
-// declaration of the variables
-const todoForm = document.querySelector("#todo-form");
-const todoInput = document.querySelector("#todo-input");
-const editForm = document.querySelector("#edit-form");
-const editInput = document.querySelector("#edit-input");
-const cancelEditBtn = document.querySelector("#cancel-edit-btn");
-const todoList = document.querySelector("#todo-list");
+    // declaration of the variables
+    const todoForm = document.querySelector("#todo-form");
+    const todoInput = document.querySelector("#todo-input");
+    const editForm = document.querySelector("#edit-form");
+    const editInput = document.querySelector("#edit-input");
+    const cancelEditBtn = document.querySelector("#cancel-edit-btn");
+    const todoList = document.querySelector("#todo-list");
+
+    /**
+     * prevent that information wont be sent to back end
+     * and save todo value
+     */
+    todoForm.addEventListener("submit", (e) => {
+        const inputValue = todoInput.value;
+        e.preventDefault();
+
+        if (inputValue) {
+
+            saveTodo(inputValue, todoList);
+        }
+    });
+
+});
+
 
 // functions
 /** 
  * function to create the to do list with buttons to edit the list
  */
-const saveTodo = (text) => {
+function saveTodo(text, todo_list){
+
     const todo = document.createElement("div");
     todo.classList.add("todo");
 
     const todoTask = document.createElement("p");
     todoTask.innerHTML = text;
     todo.appendChild(todoTask);
+
+    
 
     // buttons
 
@@ -38,19 +57,6 @@ const saveTodo = (text) => {
     deleteBtn.classList.add("remove-todo");
     deleteBtn.innerHTML = '<i class="fa-solid fa-xmark"></i>';
     todo.appendChild(deleteBtn);
+
+    todo_list.append(todo);
 }
-
-
-// Events
-/**
- * prevent that information wont be sent to back end
- */
-todoForm.addEventListener("submit", (e) => {
-    e.preventDefaul();
-
-   const inputValue = todoInput.value;
-
-   if (inputValue) {
-    saveTodo(inputValue);
-   }
-});
