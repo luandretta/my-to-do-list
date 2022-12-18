@@ -1,4 +1,4 @@
-// Wait for the DOM to finish loading before running the quiz
+//Wait for the DOM to finish loading before running the quiz
 document.addEventListener("DOMContentLoaded", function () {
 
     // declaration of the variables
@@ -20,7 +20,37 @@ document.addEventListener("DOMContentLoaded", function () {
         if (inputValue) {
 
             saveTodo(todoList, todoInput);
+
+        }
+    });
+
+    /**
+     * event listeners to the buttons
+     */
+    
+    //document.addEventListener("click", (e) => {
+    document.addEventListener("click", (e) => {
+        const targetEl = e.target;
+        console.log(targetEl);
         
+        const parentEl = targetEl.closest("div");
+        let todoTask;
+
+        if (parentEl && parentEl.querySelector("h3")) {
+            todoTask = parentEl.querySelector("h3").innerText;
+        }
+
+        if (targetEl.classList.contains("finish-todo") || targetEl.parentNode.classList.contains("finish-todo")) {
+            console.log(targetEl.classList);
+            parentEl.classList.toggle("done");
+        }
+
+        if (targetEl.classList.contains("remove-todo") || targetEl.parentNode.classList.contains("remove-todo")) {
+            parentEl.remove();
+        }
+
+        if (targetEl.classList.contains("edit-todo") || targetEl.parentNode.classList.contains("edit-todo")) {
+            toggleForms();
         }
     });
 
@@ -36,7 +66,7 @@ function saveTodo(todo_list, todo_input) {
     const todo = document.createElement("div");
     todo.classList.add("todo");
 
-    const todoTask = document.createElement("p");
+    const todoTask = document.createElement("h3");
     todoTask.innerHTML = todo_input.value;
     todo.appendChild(todoTask);
 
@@ -63,24 +93,3 @@ function saveTodo(todo_list, todo_input) {
 };
 
 // events
-
-/**
- * event listeners to the buttons
- */
-document.addEventListener("click", (e) => {
-    const targetEl = e.target;
-    const parentEl = targetEl.closest("div");
-
-    if (targetEl.classList.contains("finish-todo")) {
-        parentEl.classList.toggle("done");
-    }
-
-    if (targetEl.classList.contains("remove-todo")) {
-        parentEl.remove();
-    }
-
-    if (targetEl.classList.contains("edit-todo")) {
-        console.log("Edited");
-    }
-
-});

@@ -34,6 +34,7 @@ body {
     text-align: center;
     font-size: 3rem;
     margin: 0 0 10px 0 ;
+    border-bottom: 1px solid #829fa5;
 }
 
 /* buttons */
@@ -104,7 +105,7 @@ input, select {
     border-bottom: 1px solid #829fa5;
 }
 
-#toolbar p {
+#toolbar h4 {
     margin-bottom: 0.5rem;
 }
 
@@ -152,7 +153,7 @@ input, select {
     transition: 0.5s;
 }
 
-.todo p {
+.todo h3 {
     flex: 1;
     font-size: 1rem;
 }
@@ -166,7 +167,7 @@ input, select {
     margin: 0 1rem;
 }
 
-.done p {
+.done h3 {
     color: #fdfdfd;
     font-style: italic;
     text-decoration: line-through;
