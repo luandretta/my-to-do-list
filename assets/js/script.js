@@ -77,8 +77,9 @@ document.addEventListener("DOMContentLoaded", function () {
                 saveButton.classList.add("edit-save");
                 saveButton.id = id;
                 saveButton.name = "save" + id;
-                saveButton.innerHTML = '<i class="fa-solid fa-save"></i>';
+                saveButton.innerHTML = '<i class="fa-solid fa-save" id="'+ id +'"></i>';
                 editInputText.parentNode.insertBefore(saveButton, editInputText.nextSibling);
+                editInputText.focus();
             }
             if (targetEl.classList.contains("edit-save") || targetEl.parentNode.classList.contains("edit-save")){
                 let id = targetEl.id;
@@ -87,6 +88,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 text_updated = editInputText.value;
                 editInputText.style.display = "none";
                 const h3 = document.createElement("h3");
+                h3.id = "h3" + id;
                 h3.innerHTML = text_updated;
                 editInputText.replaceWith(h3);
                 const doneBtn = document.getElementsByName("done" + id)[0];
@@ -98,8 +100,6 @@ document.addEventListener("DOMContentLoaded", function () {
                 const saveBtn = document.getElementsByName("save" + id)[0];
                 saveBtn.style.display = "none";
                 
-
-                post_id = element.value.split("_")[1];
             //toggleForms();
         }
     });
