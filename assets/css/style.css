@@ -12,7 +12,7 @@ body {
     background: url("../images/background.jpg") no-repeat center center;
     background-size: cover;
     max-width: 2000px;
-    min-height: 100vw;
+    min-height: 100vh;
     font-family: "Lora", serif;
     color:  #076177;
 }
@@ -75,7 +75,7 @@ input, select {
     border-bottom: 1px solid #829fa5;
 }
 
-#todo-form p, #edit-form p {
+#todo-form h2, #edit-form h2 {
     font-weight: bold;
     margin-bottom: 0.5rem;
 }
@@ -105,7 +105,7 @@ input, select {
     border-bottom: 1px solid #829fa5;
 }
 
-#toolbar h4 {
+#toolbar h2 {
     margin-bottom: 0.5rem;
 }
 

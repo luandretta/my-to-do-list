@@ -25,13 +25,13 @@
 <body>
     
     <!-- To do list container -->
-    <div class="todo-container">
+    <main class="todo-container">
         <header>
             <h1 id="header">My to do list</h1>
         </header>
         <!-- Form to add the tasks -->
         <form id="todo-form">
-            <p>Add your tasks:</p>
+            <h2>Add your tasks:</h2>
             <div class="form-control">
                 <input type="text" id="todo-input" placeholder="What do you have to do?">
                 <button type="submit" aria-label="Submit">
@@ -42,7 +42,7 @@
 
         <!-- Form to edit the tasks -->
         <form id="edit-form" class="hide">
-            <P>Edit your task:</P>
+            <h2>Edit your task:</h2>
             <div class="form-control">
                 <input type="text" id="edit-input" aria-label="Edit">
                 <button type="submit" aria-label="Check">
@@ -55,7 +55,7 @@
         <!-- Search toolbar -->
         <div id="toolbar">
             <div id="search">
-                <h4>Search:</h4>
+                <h2>Search:</h2>
                 <form>
                     <input type="text" id="search-input" placeholder="Search">
                     <button id="erase-button" aria-label="Delete">
@@ -66,7 +66,7 @@
 
             <!-- Filter -->
             <div id="filter">
-                <h4>Filter:</h4>
+                <h2>Filter:</h2>
                 <select name="filter-select" id="filter-select">
                     <option value="all">All</option>
                     <option value="done">Done</option>
@@ -90,6 +90,6 @@
                 </button> -->
             </div>
         </div>
-    </div>
+    </main>
 </body>
 </html>
