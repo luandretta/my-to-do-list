@@ -121,6 +121,10 @@ The performance was tested manual and automated testing.
 
 3. Manual as an user.
 
+| Test Label | Test Action | Expected Outcome | Test Outcome |
+|:--- | :--- ||:--- | :--- |
+|
+
 
 ## Compatibility
 The website displays correctly across different browsers and screen sizes.
