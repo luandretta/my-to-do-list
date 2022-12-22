@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Lora&family=Ubuntu:ital@1&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Lora&family=Ubuntu:ital@1&display=swap");
 
 * {
     margin: 0;
@@ -164,7 +164,6 @@ input, select {
 
 .done {
     background-color: #196476;
-    margin: 0 1rem;
 }
 
 .done h3 {
