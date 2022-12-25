@@ -1,5 +1,5 @@
 //Wait for the DOM to finish loading before users interaction
-let idCount = 0;
+let tasksList = [];
 document.addEventListener("DOMContentLoaded", function () {
 
 
@@ -7,7 +7,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const todoForm = document.querySelector("#todo-form");
     const todoInput = document.querySelector("#todo-input");
     const todoList = document.querySelector("#todo-list");
-    
+    const searchInput = document.querySelector("#search-input");
 
     /**
      * prevent that information wont be sent to back end
@@ -21,84 +21,12 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     });
 
+    searchInput.addEventListener("input", searchTodo);
+
+
 });
 
-/**
- * event listeners to the buttons
- */
-/*
-document.addEventListener("click", (e) => {
-    const targetEl = e.target;
-    console.log(targetEl);
 
-    const parentEl = targetEl.closest("div");
-    let todoTask;
-
-    if (parentEl && parentEl.querySelector("h3")) {
-        todoTask = parentEl.querySelector("h3").innerText;
-    }
-
-    if (targetEl.classList.contains("finish-todo") || targetEl.parentNode.classList.contains("finish-todo")) {
-        console.log(targetEl.classList);
-        parentEl.classList.toggle("done");
-    }
-
-    if (targetEl.classList.contains("remove-todo") || targetEl.parentNode.classList.contains("remove-todo")) {
-        parentEl.remove();
-    }
-
-    if (targetEl.classList.contains("edit-todo") || targetEl.parentNode.classList.contains("edit-todo")) {
-        console.log(todoTask);
-        console.log("-----------");
-        let id = targetEl.id;
-        let text = document.getElementById("h3" + id).innerHTML;
-        const h3 = document.getElementById("h3" + id);
-        console.log(h3.value);
-        console.log(text);
-        const editInputText = document.createElement("input");
-        editInputText.setAttribute("type", "text");
-        editInputText.name = "editInput" + id;
-        editInputText.style.display = "flex";
-        editInputText.style.flex = 1;
-        editInputText.value = todoTask;
-        h3.replaceWith(editInputText);
-        const doneBtn = document.getElementsByName("done" + id)[0];
-        doneBtn.style.display = "none";
-        const editBtn = document.getElementsByName("edit" + id)[0];
-        editBtn.style.display = "none";
-        const deleteBtn = document.getElementsByName("delete" + id)[0];
-        deleteBtn.style.display = "none";
-
-        const saveButton = document.createElement("button");
-        saveButton.classList.add("edit-save");
-        saveButton.id = id;
-        saveButton.name = "save" + id;
-        saveButton.innerHTML = '<i class="fa-solid fa-save" id="' + id + '"></i>';
-        editInputText.parentNode.insertBefore(saveButton, editInputText.nextSibling);
-        editInputText.focus();
-    }
-    if (targetEl.classList.contains("edit-save") || targetEl.parentNode.classList.contains("edit-save")) {
-        let id = targetEl.id;
-        console.log(id);
-        const editInputText = document.getElementsByName("editInput" + id)[0];
-        text_updated = editInputText.value;
-        editInputText.style.display = "none";
-        const h3 = document.createElement("h3");
-        h3.id = "h3" + id;
-        h3.innerHTML = text_updated;
-        editInputText.replaceWith(h3);
-        const doneBtn = document.getElementsByName("done" + id)[0];
-        doneBtn.style.display = "flex";
-        const editBtn = document.getElementsByName("edit" + id)[0];
-        editBtn.style.display = "flex";
-        const deleteBtn = document.getElementsByName("delete" + id)[0];
-        deleteBtn.style.display = "flex";
-        const saveBtn = document.getElementsByName("save" + id)[0];
-        saveBtn.style.display = "none";
-    }
-});
-
-//});
 
 
 // functions
@@ -114,7 +42,7 @@ function newTodo(todo_list, todo_input) {
 
     const todoTask = document.createElement("h3");
     todoTask.innerHTML = todo_input.value;
-    todoTask.id = "h3" + idCount;
+    todoTask.id = "h3";
     todo.appendChild(todoTask);
 
     // buttons
@@ -131,7 +59,9 @@ function newTodo(todo_list, todo_input) {
     todo_list.append(todo);
     todo_input.value = "";
     todo_input.focus();
-    idCount++;
+
+    tasksList.push(todo);
+
 };
 /**
  * 
@@ -183,6 +113,47 @@ function saveTodo(parent){
     const nodeList = parent.childNodes;
     showHideButtons(2, nodeList, true);
 }
+
+function searchTodo(e){
+    let parent = e.currentTarget.parentNode;
+    let element = e.currentTarget;
+    
+    tasks = parent.childNodes;
+    console.log(element.value.toLowerCase());
+
+    let searchResults = findTask(element.value.toLowerCase());
+
+    tasksList.some((r) => {
+        if (searchResults.includes(r)){
+            r.style.display = "flex";
+        }else{
+            r.style.display = "none";
+        }
+    });
+
+    if (element.value == ""){
+        tasksList.forEach((item) => {
+            item.style.display = "flex";
+        })
+    }
+}
+
+function findTask(searchTerm){
+    if (searchTerm === "" || tasksList.length == 0){
+        return [];
+    } else{
+        let searchResults = [];
+        for (let task of tasksList){
+            let taskToSearch = task.firstChild.innerHTML;
+            if (taskToSearch.toLowerCase().startsWith(searchTerm)){
+                searchResults.push(task);
+            }
+        }
+        return searchResults;
+    }
+}
+
+
 function showHideButtons(index, nodeList, show){
     let display = "none"
     if (show){
