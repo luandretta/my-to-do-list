@@ -6,13 +6,8 @@ document.addEventListener("DOMContentLoaded", function () {
     // declaration of the variables
     const todoForm = document.querySelector("#todo-form");
     const todoInput = document.querySelector("#todo-input");
-    const editForm = document.querySelector("#edit-form");
-    const editInput = document.querySelector("#edit-input");
-    const cancelEditBtn = document.querySelector("#cancel-edit-btn");
     const todoList = document.querySelector("#todo-list");
-    const finishTodoButton = document.querySelector(".finish-todo");
-    const editTodoButton = document.querySelector(".edit-todo");
-    const removeTodoButton = document.querySelector(".remove-todo");
+    
 
     /**
      * prevent that information wont be sent to back end
@@ -22,7 +17,7 @@ document.addEventListener("DOMContentLoaded", function () {
         const inputValue = todoInput.value.trim();
         e.preventDefault();
         if (inputValue) {
-            saveTodo(todoList, todoInput);
+            newTodo(todoList, todoInput);
         }
     });
 
@@ -111,7 +106,7 @@ document.addEventListener("click", (e) => {
  * function to create the to do list with buttons to edit the list
  */
 
-function saveTodo(todo_list, todo_input) {
+function newTodo(todo_list, todo_input) {
 
     const todo = document.createElement("div");
     todo.style.flex = 1;
@@ -127,41 +122,12 @@ function saveTodo(todo_list, todo_input) {
     buttons.forEach((item) => {
         const element = document.createElement("button");
         element.classList.add(item);
-        element.id = idCount;
-        element.name = item + idCount;
-        element.innerHTML = '<i class="fa-solid fa-'+ item + ' id="' + idCount + '"></i>';
-        element.addEventListener("click", finishTodo);
+        element.innerHTML = '<i class="fa-solid fa-'+ item + '"></i>';
+        element.addEventListener("click", taskTodo);
         todo.appendChild(element);
     })
 
-    // for (i = 0; i < buttons.length; i++ ){
-
-    // }
-
-    // const doneBtn = document.createElement("button");
-    // doneBtn.classList.add("finish-todo");
-    // doneBtn.id = idCount;
-    // doneBtn.name = "done" + idCount;
-    // doneBtn.innerHTML = '<i class="fa-solid fa-check" id="' + idCount + '"></i>';
-    // doneBtn.addEventListener("click", finishTodo);
-    // todo.appendChild(doneBtn);
-
-    // const editBtn = document.createElement("button");
-    // editBtn.classList.add("edit-todo");
-    // editBtn.id = idCount;
-    // editBtn.name = "edit" + idCount;
-    // editBtn.innerHTML = '<i class="fa-solid fa-pen" id="' + idCount + '"></i>';
-    // editBtn.addEventListener("click", finishTodo);
-    // todo.appendChild(editBtn);
-
-    // const deleteBtn = document.createElement("button");
-    // deleteBtn.classList.add("remove-todo");
-    // deleteBtn.id = idCount;
-    // deleteBtn.name = "delete" + idCount;
-    // deleteBtn.innerHTML = '<i class="fa-solid fa-xmark" id="' + idCount + '"></i>';
-    // doneBtn.addEventListener("click", finishTodo);
-    // todo.appendChild(deleteBtn);
-
+    // attach element into div todo list 
     todo_list.append(todo);
     todo_input.value = "";
     todo_input.focus();
@@ -170,7 +136,7 @@ function saveTodo(todo_list, todo_input) {
 /**
  * 
  */
-function finishTodo(e){
+function taskTodo(e){
     let parent = e.currentTarget.parentNode;
     let element = e.currentTarget;
 
@@ -180,9 +146,51 @@ function finishTodo(e){
     else if(element.classList.contains("xmark")){
         parent.remove();
 
-    }else {
-        console.log("------PARENT----")
-        console.log(parent);
+    }else if(element.classList.contains("pen")){
+        editTodo(parent);
+
+    }else{
+        saveTodo(parent);
     }
     
+}
+
+function editTodo(parent){
+    const nodeList = parent.childNodes;
+    const taskName = parent.firstChild;
+    let editText = taskName.innerHTML;
+    const editInput = document.createElement("input");
+    editInput.setAttribute("type", "text");
+    editInput.style.flex = 1;
+    editInput.value = editText;
+    taskName.replaceWith(editInput);
+    editInput.focus();
+    showHideButtons(1, nodeList, false);
+    const saveButton = document.createElement("button");
+    saveButton.classList.add("edit-save");
+    saveButton.innerHTML = '<i class="fa-solid fa-save"></i>';
+    saveButton.addEventListener("click", taskTodo);
+    editInput.parentNode.insertBefore(saveButton, editInput.nextSibling);
+}
+
+function saveTodo(parent){
+    const taskNameInput = parent.firstChild;
+    let taskNameUpdate = taskNameInput.value;
+    taskNameInput.style.display = "none";
+    const taskName = document.createElement("h3");
+    taskName.innerHTML = taskNameUpdate;
+    taskNameInput.replaceWith(taskName);
+    const nodeList = parent.childNodes;
+    showHideButtons(2, nodeList, true);
+}
+function showHideButtons(index, nodeList, show){
+    let display = "none"
+    if (show){
+        nodeList[1].style.display = "none";
+        display = "flex"
+    }
+    for (let i = index; i < nodeList.length; i++) {
+        nodeList[i].style.display = display;
+    }
+
 }
