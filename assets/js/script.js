@@ -8,6 +8,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const todoInput = document.querySelector("#todo-input");
     const todoList = document.querySelector("#todo-list");
     const searchInput = document.querySelector("#search-input");
+    const filterSelect = document.querySelector("#filter-select");
 
     /**
      * prevent that information wont be sent to back end
@@ -22,6 +23,8 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 
     searchInput.addEventListener("input", searchTodo);
+
+    filterSelect.addEventListener("change", filterTask);
 
 
 });
@@ -39,6 +42,7 @@ function newTodo(todo_list, todo_input) {
     const todo = document.createElement("div");
     todo.style.flex = 1;
     todo.classList.add("todo");
+    todo.classList.add("pending");
 
     const todoTask = document.createElement("h3");
     todoTask.innerHTML = todo_input.value;
@@ -50,7 +54,7 @@ function newTodo(todo_list, todo_input) {
     buttons.forEach((item) => {
         const element = document.createElement("button");
         element.classList.add(item);
-        element.innerHTML = '<i class="fa-solid fa-'+ item + '"></i>';
+        element.innerHTML = '<i class="fa-solid fa-' + item + '"></i>';
         element.addEventListener("click", taskTodo);
         todo.appendChild(element);
     })
@@ -66,26 +70,27 @@ function newTodo(todo_list, todo_input) {
 /**
  * 
  */
-function taskTodo(e){
+function taskTodo(e) {
     let parent = e.currentTarget.parentNode;
     let element = e.currentTarget;
 
-    if (element.classList.contains("check")){
+    if (element.classList.contains("check")) {
         parent.classList.toggle("done");
-    }
-    else if(element.classList.contains("xmark")){
+        parent.classList.toggle("pending");
+        
+    } else if (element.classList.contains("xmark")) {
         parent.remove();
 
-    }else if(element.classList.contains("pen")){
+    } else if (element.classList.contains("pen")) {
         editTodo(parent);
 
-    }else{
+    } else {
         saveTodo(parent);
     }
-    
+
 }
 
-function editTodo(parent){
+function editTodo(parent) {
     const nodeList = parent.childNodes;
     const taskName = parent.firstChild;
     let editText = taskName.innerHTML;
@@ -103,7 +108,7 @@ function editTodo(parent){
     editInput.parentNode.insertBefore(saveButton, editInput.nextSibling);
 }
 
-function saveTodo(parent){
+function saveTodo(parent) {
     const taskNameInput = parent.firstChild;
     let taskNameUpdate = taskNameInput.value;
     taskNameInput.style.display = "none";
@@ -114,38 +119,38 @@ function saveTodo(parent){
     showHideButtons(2, nodeList, true);
 }
 
-function searchTodo(e){
+function searchTodo(e) {
     let parent = e.currentTarget.parentNode;
     let element = e.currentTarget;
-    
+
     tasks = parent.childNodes;
     console.log(element.value.toLowerCase());
 
     let searchResults = findTask(element.value.toLowerCase());
 
     tasksList.some((r) => {
-        if (searchResults.includes(r)){
+        if (searchResults.includes(r)) {
             r.style.display = "flex";
-        }else{
+        } else {
             r.style.display = "none";
         }
     });
 
-    if (element.value == ""){
+    if (element.value == "") {
         tasksList.forEach((item) => {
             item.style.display = "flex";
         })
     }
 }
 
-function findTask(searchTerm){
-    if (searchTerm === "" || tasksList.length == 0){
+function findTask(searchTerm) {
+    if (searchTerm === "" || tasksList.length == 0) {
         return [];
-    } else{
+    } else {
         let searchResults = [];
-        for (let task of tasksList){
+        for (let task of tasksList) {
             let taskToSearch = task.firstChild.innerHTML;
-            if (taskToSearch.toLowerCase().startsWith(searchTerm)){
+            if (taskToSearch.toLowerCase().includes(searchTerm)) {
                 searchResults.push(task);
             }
         }
@@ -154,9 +159,9 @@ function findTask(searchTerm){
 }
 
 
-function showHideButtons(index, nodeList, show){
+function showHideButtons(index, nodeList, show) {
     let display = "none"
-    if (show){
+    if (show) {
         nodeList[1].style.display = "none";
         display = "flex"
     }
@@ -164,4 +169,21 @@ function showHideButtons(index, nodeList, show){
         nodeList[i].style.display = display;
     }
 
+}
+
+function filterTask(filter) {
+    if (filter.currentTarget.value === "all") {
+        tasksList.forEach((item) => {
+            item.style.display = "flex";
+        });
+    } else {
+        tasksList.some((f) => {
+           // if (f.classList.contains(filter.value))
+           if(f.classList.contains(filter.currentTarget.value)) {
+                f.style.display = "flex";
+            } else {
+                f.style.display = "none";
+            }
+        });
+    }
 }
