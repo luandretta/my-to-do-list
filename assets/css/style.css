@@ -139,10 +139,10 @@ input, select {
     border: 1px solid #3D7C82;
 }
 
-/* To do list */
+/* To do list 
 #todo-list {
     margin-top: 1rem;
-}
+}*/
 
 .todo {
     display: flex;
