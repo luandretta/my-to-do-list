@@ -11,8 +11,8 @@ document.addEventListener("DOMContentLoaded", function () {
     const filterSelect = document.querySelector("#filter-select");
 
     /**
-     * prevent that information wont be sent to back end
-     * and save todo value
+     * Function to add new task 
+     * Prevent that information wont be sent to back end
      */
     todoForm.addEventListener("submit", (e) => {
         const inputValue = todoInput.value.trim();
@@ -22,25 +22,22 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     });
 
+    //Listener to search function
     searchInput.addEventListener("input", searchTodo);
 
+    //Listener to filter function
     filterSelect.addEventListener("change", filterTask);
-
-
 });
-
-
-
 
 // functions
 /** 
- * function to create the to do list with buttons to edit the list
+ * function to create the to do list and the buttons 
  */
-
 function newTodo(todo_list, todo_input) {
 
     const todo = document.createElement("div");
     todo.style.flex = 1;
+    //add control classes 
     todo.classList.add("todo");
     todo.classList.add("pending");
 
@@ -49,8 +46,9 @@ function newTodo(todo_list, todo_input) {
     todoTask.id = "h3";
     todo.appendChild(todoTask);
 
-    // buttons
+    // array with icon classes
     let buttons = ["check", "pen", "xmark"];
+    //using forEach to create each button based on the array taking advantage of it to define icon classes
     buttons.forEach((item) => {
         const element = document.createElement("button");
         element.classList.add(item);
@@ -64,32 +62,35 @@ function newTodo(todo_list, todo_input) {
     todo_input.value = "";
     todo_input.focus();
 
+    //add the new task to the list to be used later
     tasksList.push(todo);
-
 };
+
 /**
- * 
+ * Function using (e).currentTarget to assign the listeners to each button
  */
 function taskTodo(e) {
     let parent = e.currentTarget.parentNode;
     let element = e.currentTarget;
-
+    //
     if (element.classList.contains("check")) {
         parent.classList.toggle("done");
         parent.classList.toggle("pending");
-        
+    //Remove the task when users click on xmark  
     } else if (element.classList.contains("xmark")) {
         parent.remove();
-
+    //Call the editTodofunction when users click to edit it
     } else if (element.classList.contains("pen")) {
         editTodo(parent);
-
+    //Call the saveTodo function when users click to save it 
     } else {
         saveTodo(parent);
     }
-
 }
-
+/**
+ * Function do edit the task creating an input and save button
+ * Replace the task with the edition
+ */
 function editTodo(parent) {
     const nodeList = parent.childNodes;
     const taskName = parent.firstChild;
@@ -108,6 +109,9 @@ function editTodo(parent) {
     editInput.parentNode.insertBefore(saveButton, editInput.nextSibling);
 }
 
+/**
+ * Function to save the edidet task and show the hide buttons
+ */
 function saveTodo(parent) {
     const taskNameInput = parent.firstChild;
     let taskNameUpdate = taskNameInput.value;
@@ -116,18 +120,20 @@ function saveTodo(parent) {
     taskName.innerHTML = taskNameUpdate;
     taskNameInput.replaceWith(taskName);
     const nodeList = parent.childNodes;
-    showHideButtons(2, nodeList, true);
+    showHideButtons(1, nodeList, true);
 }
 
+/**
+ * Function to search a task in the to do list calling findTask
+ */
 function searchTodo(e) {
     let parent = e.currentTarget.parentNode;
     let element = e.currentTarget;
 
     tasks = parent.childNodes;
-    console.log(element.value.toLowerCase());
 
     let searchResults = findTask(element.value.toLowerCase());
-
+    //condition to display only the searched task
     tasksList.some((r) => {
         if (searchResults.includes(r)) {
             r.style.display = "flex";
@@ -143,6 +149,10 @@ function searchTodo(e) {
     }
 }
 
+/**
+ * Function to find a task in the "to do" list i.e. taskList
+ * returning the results as array
+ */
 function findTask(searchTerm) {
     if (searchTerm === "" || tasksList.length == 0) {
         return [];
@@ -158,19 +168,28 @@ function findTask(searchTerm) {
     }
 }
 
-
+/**
+ * show and hide buttons accordingly with the event either "edit" or "save" 
+ * @function showHideButtons
+ * @param {Integer} index 
+ * @param {NodeList} nodeList of the parent i.e div "todo"
+ * @param {boolean} show true if the "click" event comes from the "save" button, the button must be removed
+ */
 function showHideButtons(index, nodeList, show) {
     let display = "none"
     if (show) {
-        nodeList[1].style.display = "none";
+        nodeList[1].remove();
         display = "flex"
     }
     for (let i = index; i < nodeList.length; i++) {
         nodeList[i].style.display = display;
     }
-
 }
 
+/** filter task function, change event of select element
+ * @function filterTask
+ * @param {Element} filter select element 
+ */
 function filterTask(filter) {
     if (filter.currentTarget.value === "all") {
         tasksList.forEach((item) => {
