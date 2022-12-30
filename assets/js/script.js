@@ -160,7 +160,7 @@ function findTask(searchTerm) {
         let searchResults = [];
         for (let task of tasksList) {
             let taskToSearch = task.firstChild.innerHTML;
-            if (taskToSearch.toLowerCase().includes(searchTerm)) {
+            if (taskToSearch.toLowerCase().includes(searchTerm) && task.style.display === "flex") {
                 searchResults.push(task);
             }
         }
