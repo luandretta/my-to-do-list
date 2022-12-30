@@ -122,8 +122,21 @@ The performance was tested manual and automated testing.
 3. Manual as an user.
 
 | Test Label | Test Action | Expected Outcome | Test Outcome |
-|:--- | :--- ||:--- | :--- |
-|
+|:--- |:--- |:--- |:--- |
+| Add a task | On input field, attempt to create a new task | Task is created either with enter or click on the plus button| PASS |
+| Add a empty task | On input field, attempt to create a empty task | Empty task is not created | PASS |
+| Check the task | On check button, attempt to check the task and the display changes to done | Task is checked as done | PASS |
+| Return a done task to a pending task | On check button, attempt to return a done task to pending task | Task is returned as pending| PASS |
+| Remove a pending task | On x button, attempt to remove a pending task | Pending task is removed | PASS |
+| Remove a done task | On x button, attempt to remove a done task | Done task is removed | PASS |
+| Edit a pending task | On edit button, attempt to edit a pending task and save it | Pending task is edited and saved | PASS |
+| Edit a done task | On edit button, attempt to edit a done task and save it | Done task is edited and saved | PASS |
+| Search a task | On search input, interact to search a task writing either a word or some letters | The tasks that contain the search characters will be displayed | PASS |
+| Filter the done tasks | On filter tool, interact to filter all done tasks | Only the done tasks will be displayed | PASS |
+| Filter the pending tasks | On filter tool, interact to filter all pending tasks | Only the pending tasks will be displayed | PASS |
+| Filter the all tasks | On filter tool, interact to display all tasks | All tasks will be displayed | PASS |
+
+
 
 
 ## Compatibility
