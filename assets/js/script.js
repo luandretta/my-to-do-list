@@ -2,7 +2,6 @@
 let tasksList = [];
 document.addEventListener("DOMContentLoaded", function () {
 
-
     // declaration of the variables
     const todoForm = document.querySelector("#todo-form");
     const todoInput = document.querySelector("#todo-input");
@@ -76,13 +75,13 @@ function taskTodo(e) {
     if (element.classList.contains("check")) {
         parent.classList.toggle("done");
         parent.classList.toggle("pending");
-    //Remove the task when users click on xmark  
+        //Remove the task when users click on xmark  
     } else if (element.classList.contains("xmark")) {
         parent.remove();
-    //Call the editTodofunction when users click to edit it
+        //Call the editTodofunction when users click to edit it
     } else if (element.classList.contains("pen")) {
         editTodo(parent);
-    //Call the saveTodo function when users click to save it 
+        //Call the saveTodo function when users click to save it 
     } else {
         saveTodo(parent);
     }
@@ -143,9 +142,23 @@ function searchTodo(e) {
     });
 
     if (element.value == "") {
-        tasksList.forEach((item) => {
-            item.style.display = "flex";
-        })
+
+        var valorFiltro = document.querySelector("#filter-select");
+
+        if (valorFiltro.value == "all") {
+            tasksList.forEach((item) => {
+                item.style.display = "flex";
+            })
+        } else {
+
+            tasksList.forEach((item) => {
+                if (item.classList.contains(valorFiltro.value)) {
+                    item.style.display = "flex";
+                } else if (valorFiltro.value == "all") {
+                    item.style.display = "flex";
+                }
+            })
+        }
     }
 }
 
@@ -157,10 +170,11 @@ function findTask(searchTerm) {
     if (searchTerm === "" || tasksList.length == 0) {
         return [];
     } else {
+        let filterValue = document.querySelector("#filter-select");
         let searchResults = [];
         for (let task of tasksList) {
             let taskToSearch = task.firstChild.innerHTML;
-            if (taskToSearch.toLowerCase().includes(searchTerm) && task.style.display === "flex") {
+            if (taskToSearch.toLowerCase().includes(searchTerm) && (task.classList.contains(filterValue.value) || filterValue.value == "all")) {
                 searchResults.push(task);
             }
         }
@@ -191,14 +205,21 @@ function showHideButtons(index, nodeList, show) {
  * @param {Element} filter select element 
  */
 function filterTask(filter) {
+    let searchValue = document.querySelector("#search-input");
     if (filter.currentTarget.value === "all") {
         tasksList.forEach((item) => {
-            item.style.display = "flex";
+            if (searchValue.value) {
+                if (item.firstChild.innerHTML.toLowerCase().includes(searchValue.value)) {
+                    item.style.display = "flex";
+                }
+            } else {
+                item.style.display = "flex";
+            }
         });
     } else {
         tasksList.some((f) => {
-           // if (f.classList.contains(filter.value))
-           if(f.classList.contains(filter.currentTarget.value)) {
+            // if (f.classList.contains(filter.value))
+            if (f.classList.contains(filter.currentTarget.value) && f.firstChild.innerHTML.toLowerCase().includes(searchValue.value)) {
                 f.style.display = "flex";
             } else {
                 f.style.display = "none";
