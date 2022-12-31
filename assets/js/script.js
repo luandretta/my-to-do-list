@@ -17,7 +17,7 @@ document.addEventListener("DOMContentLoaded", function () {
         const inputValue = todoInput.value.trim();
         e.preventDefault();
         if (inputValue) {
-            newTodo(todoList, todoInput);
+            newTodo();
         }
     });
 
@@ -32,7 +32,7 @@ document.addEventListener("DOMContentLoaded", function () {
 /** 
  * function to create the to do list and the buttons 
  */
-function newTodo(todo_list, todo_input) {
+function newTodo() {
 
     const todo = document.createElement("div");
     todo.style.flex = 1;
@@ -57,9 +57,9 @@ function newTodo(todo_list, todo_input) {
     })
 
     // attach element into div todo list 
-    todo_list.append(todo);
-    todo_input.value = "";
-    todo_input.focus();
+    todoList.append(todo);
+    todoInput.value = "";
+    todoInput.focus();
 
     //add the new task to the list to be used later
     tasksList.push(todo);
@@ -67,6 +67,7 @@ function newTodo(todo_list, todo_input) {
 
 /**
  * Function using (e).currentTarget to assign the listeners to each button
+ * @param {*} e 
  */
 function taskTodo(e) {
     let parent = e.currentTarget.parentNode;

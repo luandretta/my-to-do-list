@@ -15,6 +15,7 @@ body {
     min-height: 100vh;
     font-family: "Lora", serif;
     color:  #076177;
+    margin: 0 auto;
 }
 
 /* To do container */
@@ -139,10 +140,11 @@ input, select {
     border: 1px solid #3D7C82;
 }
 
-/* To do list 
+/* To do list */
 #todo-list {
-    margin-top: 1rem;
-}*/
+    max-height: 60vh;
+    overflow-y: scroll;
+}
 
 .todo {
     display: flex;
