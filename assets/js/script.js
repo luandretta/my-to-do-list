@@ -1,14 +1,15 @@
 //Wait for the DOM to finish loading before users interaction
 let tasksList = [];
-document.addEventListener("DOMContentLoaded", function () {
+// declaration of the variables
 
-    // declaration of the variables
+document.addEventListener("DOMContentLoaded", function () {
     const todoForm = document.querySelector("#todo-form");
-    const todoInput = document.querySelector("#todo-input");
-    const todoList = document.querySelector("#todo-list");
     const searchInput = document.querySelector("#search-input");
     const filterSelect = document.querySelector("#filter-select");
+    const todoInput = document.querySelector("#todo-input");
+    const todoList = document.querySelector("#todo-list");
 
+    
     /**
      * Function to add new task 
      * Prevent that information wont be sent to back end
@@ -17,7 +18,7 @@ document.addEventListener("DOMContentLoaded", function () {
         const inputValue = todoInput.value.trim();
         e.preventDefault();
         if (inputValue) {
-            newTodo();
+            newTodo(todoInput, todoList);
         }
     });
 
@@ -32,7 +33,9 @@ document.addEventListener("DOMContentLoaded", function () {
 /** 
  * function to create the to do list and the buttons 
  */
-function newTodo() {
+function newTodo(e1, e2) {
+
+    console.log>(e1);
 
     const todo = document.createElement("div");
     todo.style.flex = 1;
@@ -41,7 +44,7 @@ function newTodo() {
     todo.classList.add("pending");
 
     const todoTask = document.createElement("h3");
-    todoTask.innerHTML = todo_input.value;
+    todoTask.innerHTML = e1.value;
     todoTask.id = "h3";
     todo.appendChild(todoTask);
 
@@ -57,9 +60,9 @@ function newTodo() {
     })
 
     // attach element into div todo list 
-    todoList.append(todo);
-    todoInput.value = "";
-    todoInput.focus();
+    e2.append(todo);
+    e1.value = "";
+    e1.focus();
 
     //add the new task to the list to be used later
     tasksList.push(todo);
@@ -144,18 +147,18 @@ function searchTodo(e) {
 
     if (element.value == "") {
 
-        var valorFiltro = document.querySelector("#filter-select");
+        var filterValue = document.querySelector("#filter-select");
 
-        if (valorFiltro.value == "all") {
+        if (filterValue.value == "all") {
             tasksList.forEach((item) => {
                 item.style.display = "flex";
             })
         } else {
 
             tasksList.forEach((item) => {
-                if (item.classList.contains(valorFiltro.value)) {
+                if (item.classList.contains(filterValue.value)) {
                     item.style.display = "flex";
-                } else if (valorFiltro.value == "all") {
+                } else if (filterValue.value == "all") {
                     item.style.display = "flex";
                 }
             })
