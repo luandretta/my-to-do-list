@@ -173,3 +173,17 @@ input, select {
     font-style: italic;
     text-decoration: line-through;
 }
+
+/* Media queries */
+/* For medium screens sizes from 600px wide and down */
+@media screen and (max-width: 600px) {
+    .todo-container {
+        max-width: 90%;
+
+    }
+
+    .todo button {
+        margin-left: 0.1rem;
+        font-size: 80%;
+    }
+}

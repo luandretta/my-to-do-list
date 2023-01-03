@@ -1,8 +1,8 @@
-//Wait for the DOM to finish loading before users interaction
 let tasksList = [];
-// declaration of the variables
 
+//Wait for the DOM to finish loading before users interaction
 document.addEventListener("DOMContentLoaded", function () {
+    // declaration of the variables
     const todoForm = document.querySelector("#todo-form");
     const searchInput = document.querySelector("#search-input");
     const filterSelect = document.querySelector("#filter-select");
@@ -18,7 +18,7 @@ document.addEventListener("DOMContentLoaded", function () {
         const inputValue = todoInput.value.trim();
         e.preventDefault();
         if (inputValue) {
-            newTodo(todoInput, todoList);
+            newTodo(todoInput, todoList, searchInput);
         }
     });
 
@@ -27,16 +27,15 @@ document.addEventListener("DOMContentLoaded", function () {
 
     //Listener to filter function
     filterSelect.addEventListener("change", filterTask);
+
+    
 });
 
 // functions
 /** 
  * function to create the to do list and the buttons 
  */
-function newTodo(e1, e2) {
-
-    console.log>(e1);
-
+function newTodo(e1, e2, e4) {
     const todo = document.createElement("div");
     todo.style.flex = 1;
     //add control classes 
@@ -57,7 +56,7 @@ function newTodo(e1, e2) {
         element.innerHTML = '<i class="fa-solid fa-' + item + '"></i>';
         element.addEventListener("click", taskTodo);
         todo.appendChild(element);
-    })
+    });
 
     // attach element into div todo list 
     e2.append(todo);
@@ -66,7 +65,22 @@ function newTodo(e1, e2) {
 
     //add the new task to the list to be used later
     tasksList.push(todo);
-};
+
+    //reset search tool
+   
+     //Listener to search function
+    //e4.addEventListener("input", searchTodo());
+    console.log(e4.parentNode);
+    e4.currentTarget.value = "";
+    searchTodo(e4);
+    //reset filter tool
+    const e3 = document.querySelector("#filter-select");
+    e3.value = "all";
+     //Listener to filter function
+    e3.addEventListener("change", filterTask());
+
+    //filterTask(e3);
+}
 
 /**
  * Function using (e).currentTarget to assign the listeners to each button
@@ -130,6 +144,7 @@ function saveTodo(parent) {
  * Function to search a task in the to do list calling findTask
  */
 function searchTodo(e) {
+
     let parent = e.currentTarget.parentNode;
     let element = e.currentTarget;
 
@@ -152,7 +167,7 @@ function searchTodo(e) {
         if (filterValue.value == "all") {
             tasksList.forEach((item) => {
                 item.style.display = "flex";
-            })
+            });
         } else {
 
             tasksList.forEach((item) => {
@@ -161,7 +176,7 @@ function searchTodo(e) {
                 } else if (filterValue.value == "all") {
                     item.style.display = "flex";
                 }
-            })
+            });
         }
     }
 }
@@ -194,10 +209,10 @@ function findTask(searchTerm) {
  * @param {boolean} show true if the "click" event comes from the "save" button, the button must be removed
  */
 function showHideButtons(index, nodeList, show) {
-    let display = "none"
+    let display = "none";
     if (show) {
         nodeList[1].remove();
-        display = "flex"
+        display = "flex";
     }
     for (let i = index; i < nodeList.length; i++) {
         nodeList[i].style.display = display;
@@ -209,6 +224,7 @@ function showHideButtons(index, nodeList, show) {
  * @param {Element} filter select element 
  */
 function filterTask(filter) {
+    console.log(filter);
     let searchValue = document.querySelector("#search-input");
     if (filter.currentTarget.value === "all") {
         tasksList.forEach((item) => {
