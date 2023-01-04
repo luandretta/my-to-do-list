@@ -6,6 +6,8 @@ Through the search tool you can easily find what you are looking for, and also t
 
 List your tasks and you can dedicate a better time for each activity without wasting time. It is worth mentioning that usually those who have no planning tend to procrastinate during the day, which hinders their activities and performance.
 
+![My to do list](documentation/responsiveness.PNG)
+
 
 ## Demo
 
@@ -43,10 +45,10 @@ A live demo can be found [here](https://luandretta.github.io/my-to-do-list/)
 
 ## User stories:
 * As a new user, I expetc to easily to understand the main purpose of the site and navigate without complications.
-* I can create my to do list with unlimited tasks, 
+* I can create my to do list with unlimited tasks. 
 * I want to either edit, or check or remove my tasks.
 * If I have many tasks, I expect to find a task easily so I can check it out.
-* I also want to select the done and pending tasks.
+* I also want to filter the done and pending tasks.
 
 - - -
 # Design
@@ -102,12 +104,12 @@ It can take some time for the page to be fully deployed.
 ## Run locally
 **Fork**
 1. Login or Sign Up to GitHub.
-2. Open the project [repository](https://github.com/luandretta/night-clicks).
+2. Open the project [repository](https://github.com/luandretta/my-to-do-list).
 3. Click the Fork button in the top right corner.
 
 **Clone**
 1. Login or Sign Up to GitHub.
-2. Open the project [repository](https://github.com/luandretta/night-clicks).
+2. Open the project [repository](https://github.com/luandretta/my-to-do-list).
 3. Click on the code button, select whether you would like to clone with HTTPS, SSH or GitHub CLI and copy the link shown.
 4. Open the terminal in the code editor of your choice and change the current working directory to the location you want to use for the cloned directory.
 5. Type 'git clone' into the terminal and then paste the link you copied in step 3. Press enter.
@@ -143,7 +145,7 @@ Lighthouse within the Chrome Developer Tools are used to test performance, acces
 
 ### Manual as an user: 
  
-Features Identification:  
+Features Identification (FID):  
 1. Add a task: input text + button
 2. Search tool: input
 3. Filter tool values: all, done and pending
@@ -154,7 +156,7 @@ Features Identification:
 
 ![Features](documentation/features.png)
 
-|ID| Test Label | Test Action | Expected Outcome | Test Outcome |
+|FID| Test Label | Test Action | Expected Outcome | Test Outcome |
 |:---|:--- |:--- |:--- |:--- |
 |1| Add a task | On input field, attempt to create a new task | Task is created either with enter or click on the plus button| PASS |
 |1| Add a empty task | On input field, attempt to create a empty task | Empty task is not created | PASS |
@@ -162,6 +164,7 @@ Features Identification:
 |1+3| Add a task with filter as "done"| Attempting to create new task with filter on done| Task is created, the filter is reset for all tasks and I can see my new task| PASS |
 |1+3| Add a task with filter as "pending"| Attempting to create new task with filter on pending| Task is created, the filter is reset for all tasks and I can see my new task| PASS |
 |1+6| Add a task without completing the edition of another task| Attempt to create a task without completing the editing of another task| New task is created and the other task can continue to be edited and saved| PASS |
+|1+4+ 5+6| Hover efect and cursor pointer | Placing the mouse cursor on the target button | Changing the color and to cursor pointer | PASS |
 |4| Check the task | On check button, attempt to check the task and the display changes to done | Task is checked as done | PASS |
 |4| Return a done task to a pending task | On check button, attempt to return a done task to pending task | Task is returned as pending| PASS |
 |3+4| Using filter as done, check a done task to return a pending | Set the filter as done and check one done task | Task is returned as pending and the filter displays only the currently checked tasks| PASS |
@@ -184,7 +187,7 @@ Features Identification:
 ## Compatibility
 The website displays correctly across different browsers and screen sizes.
 
-It was checked on Chrome, Firefox, Safari and Edge.
+It was checked on Chrome, Firefox, Safari and Edge. Using Safari, only the sans-serif font in the header is displayed and not the Ubuntu, but this does not affect the performance of the site.
 
 ## Responsiveness
 Chrome developer tool have been used to check the responsivness. The application was tested on very small screens e.g. iPhone 5(320px wide) and very large screens e.g. 5k iMac Pro(5120x2880px).
@@ -218,3 +221,7 @@ The project was inspired by a tutorial from [w3schools](https://www.w3schools.co
 * My husband for all the support and help to solve the bugs.
 
 * My Mentor Brian Macharia for continuous helpful feedback.
+
+- - - 
+
+Developed By Lucimeri Andretta for Code Institute's Portfolio Project 2 - 2023
