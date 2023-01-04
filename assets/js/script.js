@@ -1,7 +1,7 @@
 let tasksList = [];
 
 //Wait for the DOM to finish loading before users interaction
-document.addEventListener("DOMContentLoaded", function () {
+document.addEventListener("DOMContentLoaded", function() {
     // declaration of the variables
     const todoForm = document.querySelector("#todo-form");
     const searchInput = document.querySelector("#search-input");
@@ -9,7 +9,6 @@ document.addEventListener("DOMContentLoaded", function () {
     const todoInput = document.querySelector("#todo-input");
     const todoList = document.querySelector("#todo-list");
 
-    
     /**
      * Function to add new task 
      * Prevent that information wont be sent to back end
@@ -18,7 +17,7 @@ document.addEventListener("DOMContentLoaded", function () {
         const inputValue = todoInput.value.trim();
         e.preventDefault();
         if (inputValue) {
-            newTodo(todoInput, todoList, searchInput);
+            newTodo(todoInput, todoList, searchInput, filterSelect);
         }
     });
 
@@ -27,15 +26,13 @@ document.addEventListener("DOMContentLoaded", function () {
 
     //Listener to filter function
     filterSelect.addEventListener("change", filterTask);
-
-    
 });
 
 // functions
 /** 
  * function to create the to do list and the buttons 
  */
-function newTodo(e1, e2, e4) {
+function newTodo(todoInput, todoList, searchInput, filterSelect) {
     const todo = document.createElement("div");
     todo.style.flex = 1;
     //add control classes 
@@ -43,7 +40,7 @@ function newTodo(e1, e2, e4) {
     todo.classList.add("pending");
 
     const todoTask = document.createElement("h3");
-    todoTask.innerHTML = e1.value;
+    todoTask.innerHTML = todoInput.value;
     todoTask.id = "h3";
     todo.appendChild(todoTask);
 
@@ -59,27 +56,20 @@ function newTodo(e1, e2, e4) {
     });
 
     // attach element into div todo list 
-    e2.append(todo);
-    e1.value = "";
-    e1.focus();
+    todoList.append(todo);
+    todoInput.value = "";
+    todoInput.focus();
 
     //add the new task to the list to be used later
     tasksList.push(todo);
 
-    //reset search tool
-   
-     //Listener to search function
-    //e4.addEventListener("input", searchTodo());
-    console.log(e4.parentNode);
-    e4.currentTarget.value = "";
-    searchTodo(e4);
-    //reset filter tool
-    const e3 = document.querySelector("#filter-select");
-    e3.value = "all";
-     //Listener to filter function
-    e3.addEventListener("change", filterTask());
+    //reset filter select
+    filterSelect.selectedIndex = 0;
+    filterSelect.dispatchEvent(new Event('change'));
 
-    //filterTask(e3);
+    //reset search
+    searchInput.value = "";
+    searchInput.dispatchEvent(new Event('input'));
 }
 
 /**
@@ -93,6 +83,8 @@ function taskTodo(e) {
     if (element.classList.contains("check")) {
         parent.classList.toggle("done");
         parent.classList.toggle("pending");
+        const filterSelect = document.querySelector("#filter-select")
+        filterSelect.dispatchEvent(new Event('change'));
         //Remove the task when users click on xmark  
     } else if (element.classList.contains("xmark")) {
         parent.remove();
@@ -144,13 +136,9 @@ function saveTodo(parent) {
  * Function to search a task in the to do list calling findTask
  */
 function searchTodo(e) {
-
-    let parent = e.currentTarget.parentNode;
     let element = e.currentTarget;
-
-    tasks = parent.childNodes;
-
     let searchResults = findTask(element.value.toLowerCase());
+
     //condition to display only the searched task
     tasksList.some((r) => {
         if (searchResults.includes(r)) {
@@ -224,7 +212,6 @@ function showHideButtons(index, nodeList, show) {
  * @param {Element} filter select element 
  */
 function filterTask(filter) {
-    console.log(filter);
     let searchValue = document.querySelector("#search-input");
     if (filter.currentTarget.value === "all") {
         tasksList.forEach((item) => {
