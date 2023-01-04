@@ -1,7 +1,7 @@
 let tasksList = [];
 
 //Wait for the DOM to finish loading before users interaction
-document.addEventListener("DOMContentLoaded", function() {
+document.addEventListener("DOMContentLoaded", function () {
     // declaration of the variables
     const todoForm = document.querySelector("#todo-form");
     const searchInput = document.querySelector("#search-input");
@@ -9,10 +9,7 @@ document.addEventListener("DOMContentLoaded", function() {
     const todoInput = document.querySelector("#todo-input");
     const todoList = document.querySelector("#todo-list");
 
-    /**
-     * Function to add new task 
-     * Prevent that information wont be sent to back end
-     */
+    //Listener to add tasks
     todoForm.addEventListener("submit", (e) => {
         const inputValue = todoInput.value.trim();
         e.preventDefault();
@@ -29,8 +26,12 @@ document.addEventListener("DOMContentLoaded", function() {
 });
 
 // functions
-/** 
- * function to create the to do list and the buttons 
+/**
+ * @function  create the to do list and the buttons 
+ * @param {object} todoInput input text element 
+ * @param {object} todoList div element for the new task
+ * @param {object} searchInput input text for the search
+ * @param {object} filterSelect select element
  */
 function newTodo(todoInput, todoList, searchInput, filterSelect) {
     const todo = document.createElement("div");
@@ -73,8 +74,8 @@ function newTodo(todoInput, todoList, searchInput, filterSelect) {
 }
 
 /**
- * Function using (e).currentTarget to assign the listeners to each button
- * @param {*} e 
+ * @function using (e).currentTarget to assign the listeners to each button
+ * @param {object} e from the listener
  */
 function taskTodo(e) {
     let parent = e.currentTarget.parentNode;
@@ -97,8 +98,9 @@ function taskTodo(e) {
     }
 }
 /**
- * Function do edit the task creating an input and save button
+ * @function  edit the task creating an input text element and save button
  * Replace the task with the edition
+ * @param {object} parent div element the task itself
  */
 function editTodo(parent) {
     const nodeList = parent.childNodes;
@@ -119,7 +121,8 @@ function editTodo(parent) {
 }
 
 /**
- * Function to save the edidet task and show the hide buttons
+ * @function  save the edidet task and show the hide buttons
+ * @param {object} parent div element the task itself
  */
 function saveTodo(parent) {
     const taskNameInput = parent.firstChild;
@@ -133,7 +136,8 @@ function saveTodo(parent) {
 }
 
 /**
- * Function to search a task in the to do list calling findTask
+ * @function search a task in the to do list calling findTask
+ * @param {object} e input text with the value to be searched
  */
 function searchTodo(e) {
     let element = e.currentTarget;
@@ -170,8 +174,9 @@ function searchTodo(e) {
 }
 
 /**
- * Function to find a task in the "to do" list i.e. taskList
- * returning the results as array
+ * @function find a task in the "to do" list i.e. taskList
+ * @param {string} search term 
+ * @returns results of the search as array
  */
 function findTask(searchTerm) {
     if (searchTerm === "" || tasksList.length == 0) {
@@ -209,7 +214,7 @@ function showHideButtons(index, nodeList, show) {
 
 /** filter task function, change event of select element
  * @function filterTask
- * @param {Element} filter select element 
+ * @param {object} filter select element 
  */
 function filterTask(filter) {
     let searchValue = document.querySelector("#search-input");
@@ -225,7 +230,6 @@ function filterTask(filter) {
         });
     } else {
         tasksList.some((f) => {
-            // if (f.classList.contains(filter.value))
             if (f.classList.contains(filter.currentTarget.value) && f.firstChild.innerHTML.toLowerCase().includes(searchValue.value)) {
                 f.style.display = "flex";
             } else {
